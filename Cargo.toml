@@ -1,0 +1,19 @@
+[package]
+name = "ndarray"
+version = "0.1.0"
+authors = ["nathanfaucett <nathanfaucett@gmail.com>"]
+
+keywords = ["ndarray"]
+description = "N-dimensional array"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/nathanfaucett/rs-ndarray.git"
+homepage = "https://github.com/nathanfaucett/rs-ndarray"
+
+[dependencies]
+array = {git = "https://github.com/nathanfaucett/rs-array.git"}
+min = {git = "https://github.com/nathanfaucett/rs-min.git"}
+one = {git = "https://github.com/nathanfaucett/rs-one.git"}
+zero = {git = "https://github.com/nathanfaucett/rs-zero.git"}
+
+[dev-dependencies]
