@@ -1,12 +1,13 @@
-extern crate array;
-extern crate min;
+//#![no_std]
+extern crate core;
+
+
+extern crate buffer;
 extern crate one;
 extern crate zero;
 
 
-//mod ndarray_builder;
-mod darray;
+mod ndarray;
 
 
-//pub use ndarray_builder::NDArrayBuilder;
-pub use darray::DArray;
+pub use ndarray::NDArray;
