@@ -1,5 +1,4 @@
-//#![no_std]
-extern crate core;
+#![no_std]
 
 
 extern crate buffer;
