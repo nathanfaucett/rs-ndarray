@@ -1,5 +1,8 @@
+#![feature(collections)]
 #![no_std]
 
+
+extern crate collections;
 
 extern crate buffer;
 extern crate one;

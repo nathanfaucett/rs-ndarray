@@ -2,6 +2,8 @@ use buffer::Buffer;
 use one::One;
 use zero::Zero;
 
+use collections::string::String;
+
 use core::ops::{Deref, DerefMut, Add};
 
 
@@ -33,8 +35,13 @@ impl<T> NDArray<T> {
     pub fn ndim(&self) -> usize {
         self.rank()
     }
+
     pub fn len(&self) -> usize {
         self.data.len()
+    }
+
+    pub fn dim(&self, dim: usize) -> usize {
+        self.shape[dim]
     }
 
     pub fn arange(&mut self, size: usize) -> &mut Self {
@@ -165,6 +172,14 @@ impl<T: Copy + One> NDArray<T> {
         self
     }
 }
+impl NDArray<String> {
+    pub fn string(&mut self) -> &mut Self {
+        for data in self.data.iter_mut() {
+            *data = String::new();
+        }
+        self
+    }
+}
 
 
 #[cfg(test)]
@@ -181,6 +196,11 @@ mod test {
             .reshape(&[3, 4])
             .count();
 
+        assert_eq!(ndarray.dim(0), 3);
+        assert_eq!(ndarray.dim(1), 4);
+        assert_eq!(ndarray.len(), 12);
+        assert_eq!(ndarray.rank(), 2);
+
         unsafe {
             assert_eq!(ndarray.get_unchecked(&[0, 3]), &3);
             assert_eq!(ndarray.get_unchecked(&[1, 3]), &7);
@@ -190,5 +210,20 @@ mod test {
         assert_eq!(&*ndarray.unravel_index(3), &[0, 3]);
         assert_eq!(&*ndarray.unravel_index(7), &[1, 3]);
         assert_eq!(&*ndarray.unravel_index(11), &[2, 3]);
+    }
+    #[test]
+    fn test_ndarray_string() {
+        let mut ndarray = NDArray::<String>::new();
+
+        ndarray
+            .reshape(&[3, 3])
+            .string();
+
+        unsafe {
+            assert_eq!(ndarray.get_unchecked(&[1, 1]), &"");
+        }
+
+        assert_eq!(ndarray.dim(0), 3);
+        assert_eq!(ndarray.dim(1), 3);
     }
 }
