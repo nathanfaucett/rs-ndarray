@@ -37,13 +37,13 @@ impl<T> NDArray<T> {
         self.data.len()
     }
 
-    pub fn arange(mut self, size: usize) -> Self {
+    pub fn arange(&mut self, size: usize) -> &mut Self {
         if size > 0 && self.data.len() != size {
             self.data.resize(size);
         }
         self
     }
-    pub fn reshape(mut self, dims: &[usize]) -> Self {
+    pub fn reshape(&mut self, dims: &[usize]) -> &mut Self {
         if self.shape.len() != dims.len() {
             self.shape.resize(dims.len());
         }
@@ -138,7 +138,7 @@ impl<T> DerefMut for NDArray<T> {
 }
 
 impl<T: Copy + One + Zero + Add<T, Output = T>> NDArray<T> {
-    pub fn count(mut self) -> Self {
+    pub fn count(&mut self) -> &mut Self {
         let mut value = T::zero();
 
         for data in self.data.iter_mut() {
@@ -150,7 +150,7 @@ impl<T: Copy + One + Zero + Add<T, Output = T>> NDArray<T> {
     }
 }
 impl<T: Copy + Zero> NDArray<T> {
-    pub fn zero(mut self) -> Self {
+    pub fn zero(&mut self) -> &mut Self {
         for data in self.data.iter_mut() {
             *data = T::zero();
         }
@@ -158,7 +158,7 @@ impl<T: Copy + Zero> NDArray<T> {
     }
 }
 impl<T: Copy + One> NDArray<T> {
-    pub fn one(mut self) -> Self {
+    pub fn one(&mut self) -> &mut Self {
         for data in self.data.iter_mut() {
             *data = T::one();
         }
@@ -174,7 +174,9 @@ mod test {
 
     #[test]
     fn test_ndarray() {
-        let ndarray = NDArray::<usize>::new()
+        let mut ndarray = NDArray::<usize>::new();
+
+        ndarray
             .arange(12)
             .reshape(&[3, 4])
             .count();
