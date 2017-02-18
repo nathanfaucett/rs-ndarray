@@ -226,4 +226,28 @@ mod test {
         assert_eq!(ndarray.dim(0), 3);
         assert_eq!(ndarray.dim(1), 3);
     }
+
+    #[test]
+    fn test_deep_ndarray() {
+        let mut ndarray = NDArray::<usize>::new();
+
+        ndarray
+            .reshape(&[2, 3, 4, 5, 6, 7, 8, 9, 10])
+            .count();
+
+        assert_eq!(ndarray.len(), 3628800);
+        assert_eq!(ndarray.rank(), 9);
+
+        unsafe {
+            assert_eq!(ndarray.get_unchecked(&[0, 0, 0, 0, 0, 0, 0, 0, 0]), &0);
+            assert_eq!(ndarray.get_unchecked(&[0, 0, 0, 2, 4, 5, 2, 5, 3]), &84473);
+            assert_eq!(ndarray.get_unchecked(&[1, 0, 0, 0, 0, 0, 0, 0, 0]), &1814400);
+            assert_eq!(ndarray.get_unchecked(&[1, 2, 3, 4, 5, 6, 7, 8, 9]), &3628799);
+        }
+
+        assert_eq!(&*ndarray.unravel_index(0), &[0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        assert_eq!(&*ndarray.unravel_index(84473), &[0, 0, 0, 2, 4, 5, 2, 5, 3]);
+        assert_eq!(&*ndarray.unravel_index(1814400), &[1, 0, 0, 0, 0, 0, 0, 0, 0]);
+        assert_eq!(&*ndarray.unravel_index(3628799), &[1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    }
 }
