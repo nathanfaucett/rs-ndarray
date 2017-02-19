@@ -1,10 +1,12 @@
 #![feature(collections)]
-#![no_std]
+//#![no_std]
+extern crate core;
 
 
+#[macro_use]
 extern crate collections;
 
-extern crate buffer;
+extern crate array;
 extern crate one;
 extern crate zero;
 

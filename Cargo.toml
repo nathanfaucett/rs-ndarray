@@ -11,7 +11,7 @@ repository = "https://github.com/nathanfaucett/rs-ndarray.git"
 homepage = "https://github.com/nathanfaucett/rs-ndarray"
 
 [dependencies]
-buffer = {git = "https://github.com/nathanfaucett/rs-buffer.git"}
+array = {path = "../rs-array"}
 one = {git = "https://github.com/nathanfaucett/rs-one.git"}
 zero = {git = "https://github.com/nathanfaucett/rs-zero.git"}
 
