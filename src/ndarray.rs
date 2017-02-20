@@ -108,7 +108,6 @@ impl<T> NDArray<T> {
 
     pub unsafe fn get_unchecked(&self, indices: &[usize]) -> &T {
         let index = self.ravel_index(indices);
-        println!("{:?} {:?}", index, self.data.len());
         &self.data[index]
     }
     pub unsafe fn get_unchecked_mut(&mut self, indices: &[usize]) -> &mut T {

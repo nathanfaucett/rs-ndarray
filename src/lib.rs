@@ -1,9 +1,7 @@
 #![feature(collections)]
-//#![no_std]
-extern crate core;
+#![no_std]
 
 
-#[macro_use]
 extern crate collections;
 
 extern crate array;
